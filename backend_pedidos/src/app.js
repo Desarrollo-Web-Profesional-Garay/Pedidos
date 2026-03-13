@@ -29,12 +29,16 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 // Rutas
+app.get("/health", (req, res) => {
+  res.json({ status: "ok", time: new Date() });
+});
+
 pedidosRoutes(app);
 usuarioRoutes(app);
 
 // Ruta de prueba
 app.get("/", (req, res) => {
-  res.send("Hola from Express!");
+  res.send("API Pedidos funcionando correctamente en produccion!");
 });
 
 export default app;
