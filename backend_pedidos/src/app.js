@@ -7,11 +7,20 @@ import { usuarioRoutes } from "./rutas/usuarios.js";
 const app = express();
 
 // Middlewares
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
+
 app.use(cors({
   origin: "*",
-  methods: ["GET", "POST", "PATCH", "DELETE", "PUT", "OPTIONS"],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
+app.options("*", cors()); // Enable pre-flight for all routes
+
 app.use(bodyParser.json());
 
 // Rutas
