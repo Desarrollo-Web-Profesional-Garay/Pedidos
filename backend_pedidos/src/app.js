@@ -6,21 +6,24 @@ import { usuarioRoutes } from "./rutas/usuarios.js";
 
 const app = express();
 
-// 1. Interceptor de CORS y Logging (TODO EN UNO)
+// 1. Logger de red forzado (stdout)
 app.use((req, res, next) => {
-  console.log(`[NETWORK] ${req.method} ${req.url}`);
+  process.stdout.write(`\n[NETWORK] ${req.method} ${req.path}\n`);
+  next();
+});
+
+// 2. CORS Manual Robusto
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  res.setHeader("Access-Control-Allow-Origin", origin || "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept, Origin, X-Requested-With");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
   
-  // Headers de CORS
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept, Origin, X-Requested-With");
-  
-  // Si es OPTIONS, respondemos de inmediato con 200
   if (req.method === "OPTIONS") {
-    console.log(`[CORS] Respondido preflight para ${req.url}`);
+    process.stdout.write(`[CORS] Preflight handled for ${req.path}\n`);
     return res.status(200).end();
   }
-  
   next();
 });
 
