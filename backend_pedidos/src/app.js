@@ -7,21 +7,14 @@ import { usuarioRoutes } from "./rutas/usuarios.js";
 const app = express();
 
 // Middlewares
+app.use(cors()); // Permite todos los orígenes por defecto, es lo más seguro para depurar
+app.use(bodyParser.json());
+
+// Log de peticiones
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
   next();
 });
-
-app.use(cors({
-  origin: "*",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
-app.options("*", cors()); // Enable pre-flight for all routes
-
-app.use(bodyParser.json());
 
 // Rutas
 pedidosRoutes(app);
