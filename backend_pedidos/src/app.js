@@ -6,27 +6,20 @@ import { usuarioRoutes } from "./rutas/usuarios.js";
 
 const app = express();
 
-// 1. Log de peticiones (Primero que nada)
+// 1. Logger simple
 app.use((req, res, next) => {
-  console.log(`[DEBUG] ${req.method} ${req.url}`);
+  console.log(`[REQ] ${req.method} ${req.url}`);
   next();
 });
 
-// 2. CORS Manual (Para asegurar que los headers siempre estén)
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept, Origin, X-Requested-With");
-  
-  // Responder inmediatamente a las peticiones de pre-vuelo (OPTIONS)
-  if (req.method === "OPTIONS") {
-    console.log(`[DEBUG] Respondiendo a OPTIONS ${req.url}`);
-    return res.sendStatus(200);
-  }
-  next();
-});
+// 2. CORS estándar (Más confiable en Railway)
+app.use(cors({
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  optionsSuccessStatus: 200
+}));
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 // Rutas
 app.get("/health", (req, res) => {
