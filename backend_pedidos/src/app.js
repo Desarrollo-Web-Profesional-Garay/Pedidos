@@ -6,18 +6,23 @@ import { usuarioRoutes } from "./rutas/usuarios.js";
 
 const app = express();
 
-// 1. Logger simple
+// 1. Interceptor de CORS y Logging (TODO EN UNO)
 app.use((req, res, next) => {
-  console.log(`[REQ] ${req.method} ${req.url}`);
+  console.log(`[NETWORK] ${req.method} ${req.url}`);
+  
+  // Headers de CORS
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept, Origin, X-Requested-With");
+  
+  // Si es OPTIONS, respondemos de inmediato con 200
+  if (req.method === "OPTIONS") {
+    console.log(`[CORS] Respondido preflight para ${req.url}`);
+    return res.status(200).end();
+  }
+  
   next();
 });
-
-// 2. CORS estándar (Más confiable en Railway)
-app.use(cors({
-  origin: "*",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  optionsSuccessStatus: 200
-}));
 
 app.use(express.json());
 
