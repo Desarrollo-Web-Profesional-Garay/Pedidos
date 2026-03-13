@@ -62,4 +62,3 @@ Este es un sistema robusto para la gestión de pedidos, desarrollado con un enfo
 4. Usa `npm run dev` para iniciar el desarrollo.
 
 ---
-*Desarrollado con ❤️ para una gestión eficiente.*
