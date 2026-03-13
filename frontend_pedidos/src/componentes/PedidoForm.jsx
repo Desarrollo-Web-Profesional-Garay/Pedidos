@@ -6,6 +6,7 @@ function PedidoForm() {
   const [form, setForm] = useState({
     nombre: "",
     telefono: "",
+    direccion: "",
     fecha_solicitud: "",
     fecha_envio: "",
     total: "",
@@ -53,6 +54,7 @@ function PedidoForm() {
       setForm({
         nombre: "",
         telefono: "",
+        direccion: "",
         fecha_solicitud: "",
         fecha_envio: "",
         total: "",
@@ -89,6 +91,21 @@ function PedidoForm() {
               value={form.nombre}
               onChange={handleChange}
               required
+              className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
+
+
+          {/* Dirección */}
+          <div>
+            <label className="block font-medium mb-1">Dirección</label>
+            <input
+              type="text"
+              name="direccion"
+              value={form.direccion}
+              onChange={handleChange}
+              required
+              placeholder="Calle, número y colonia"
               className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500"
             />
           </div>
