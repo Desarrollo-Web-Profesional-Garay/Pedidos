@@ -7,7 +7,11 @@ import { usuarioRoutes } from "./rutas/usuarios.js";
 const app = express();
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PATCH", "DELETE", "PUT", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 app.use(bodyParser.json());
 
 // Rutas
