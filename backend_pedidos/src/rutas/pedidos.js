@@ -58,10 +58,12 @@ export function pedidosRoutes(app) {
 
   // POST /api/v1/pedidos
   app.post("/api/v1/pedidos", async (req, res) => {
+    console.log("[PEDIDOS] Peticion POST recibida:", req.body);
     try {
       const pedido = await creaPedido(req.body);
       res.status(201).json(pedido);
     } catch (error) {
+      console.error("[PEDIDOS] Error al crear pedido:", error);
       res.status(500).json({ error: error.message });
     }
   });

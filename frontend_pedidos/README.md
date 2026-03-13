@@ -1,16 +1,65 @@
-# React + Vite
+# 📦 Sistema de Gestión de Pedidos - Full Stack
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este es un sistema robusto para la gestión de pedidos, desarrollado con un enfoque profesional, conectando un frontend moderno en React con un backend escalable en Node.js y una base de datos MongoDB.
 
-Currently, two official plugins are available:
+## 🚀 Despliegue en Producción
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Frontend:** [pedidos-production-edf9.up.railway.app](https://pedidos-production-edf9.up.railway.app/)
+- **Backend (API):** [desirable-reprieve-production-aae9.up.railway.app/api/v1](https://desirable-reprieve-production-aae9.up.railway.app/api/v1)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tecnologías Utilizadas
 
-## Expanding the ESLint configuration
+### Frontend
+- **React.js + Vite**: Para una interfaz rápida y reactiva.
+- **Tailwind CSS**: Diseño moderno y responsivo.
+- **Axios**: Comunicación fluida con la API.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Backend
+- **Node.js + Express**: Servidor escalable y eficiente.
+- **MongoDB + Mongoose**: Base de Datos NoSQL para persistencia flexible.
+- **CORS & Body-Parser**: Middleware para seguridad y manejo de datos.
+
+---
+
+## 📸 Capturas de Pantalla (Galería)
+
+| Registro de Pedidos | Interfaz Principal |
+|:---:|:---:|
+| ![Captura 1](image-1.png) | ![Captura 2](image-2.png) |
+| ![Captura 3](image-3.png) | ![Captura 4](image-4.png) |
+| ![Captura 5](image-5.png) | ![Captura 6](image-6.png) |
+
+---
+
+## 📂 Estructura del Proyecto
+
+```text
+/
+├── backend_pedidos/    # Código del servidor y base de datos
+└── frontend_pedidos/   # Interfaz de usuario y componentes
+```
+
+---
+
+## 🔑 Endpoints de la API
+
+| Método | Endpoint | Descripción |
+| :--- | :--- | :--- |
+| **GET** | `/pedidos` | Lista todos los pedidos. |
+| **POST** | `/pedidos` | Crea un nuevo pedido (Requiere `direccion`). |
+| **PATCH** | `/pedidos/:id` | Actualiza un pedido. |
+| **DELETE** | `/pedidos/:id` | Elimina un pedido. |
+
+---
+
+## 🔧 Instalación Local
+
+1. Clona el repositorio.
+2. Configura los `.env` con tu `DATABASE_URL` y `PORT`.
+3. Ejecuta `npm install` en ambas carpetas.
+4. Usa `npm run dev` para iniciar el desarrollo.
+
+---
+*Desarrollado con ❤️ para una gestión eficiente.*

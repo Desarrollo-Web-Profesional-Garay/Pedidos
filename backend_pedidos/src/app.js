@@ -6,27 +6,28 @@ import { usuarioRoutes } from "./rutas/usuarios.js";
 
 const app = express();
 
-// 1. Log de peticiones (Primero que nada)
+// 1. Logger de red forzado (stdout)
 app.use((req, res, next) => {
-  console.log(`[DEBUG] ${req.method} ${req.url}`);
+  process.stdout.write(`\n[NETWORK] ${req.method} ${req.path}\n`);
   next();
 });
 
-// 2. CORS Manual (Para asegurar que los headers siempre estén)
+// 2. CORS Manual Robusto
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept, Origin, X-Requested-With");
+  const origin = req.headers.origin;
+  res.setHeader("Access-Control-Allow-Origin", origin || "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept, Origin, X-Requested-With");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
   
-  // Responder inmediatamente a las peticiones de pre-vuelo (OPTIONS)
   if (req.method === "OPTIONS") {
-    console.log(`[DEBUG] Respondiendo a OPTIONS ${req.url}`);
-    return res.sendStatus(200);
+    process.stdout.write(`[CORS] Preflight handled for ${req.path}\n`);
+    return res.status(200).end();
   }
   next();
 });
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 // Rutas
 app.get("/health", (req, res) => {
